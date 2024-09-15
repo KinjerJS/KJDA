@@ -1,0 +1,21 @@
+subprojects {
+    apply plugin: 'java'
+
+    group = 'fr.kinjer'
+    version = '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation "net.dv8tion:JDA:5.1.0"
+
+        testImplementation platform('org.junit:junit-bom:5.10.0')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
