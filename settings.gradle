@@ -2,3 +2,5 @@ rootProject.name = 'KJDA'
 include 'api'
 include 'impl'
 
+
+println("TEST")

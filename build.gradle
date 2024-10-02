@@ -1,5 +1,6 @@
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'java-library'
 
     group = 'fr.kinjer'
     version = '1.0-SNAPSHOT'
@@ -9,7 +10,8 @@ subprojects {
     }
 
     dependencies {
-        implementation "net.dv8tion:JDA:5.1.0"
+        api "net.dv8tion:JDA:5.1.0"
+        implementation 'org.reflections:reflections:0.9.11'
 
         testImplementation platform('org.junit:junit-bom:5.10.0')
         testImplementation 'org.junit.jupiter:junit-jupiter'
