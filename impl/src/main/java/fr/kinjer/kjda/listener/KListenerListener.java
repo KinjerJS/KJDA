@@ -1,9 +1,6 @@
 package fr.kinjer.kjda.listener;
 
-import fr.kinjer.kjda.KJDA;
 import fr.kinjer.kjda.KJDABuilder;
-import fr.kinjer.kjda.command.KCommandExecutor;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -44,7 +41,7 @@ public class KListenerListener extends ListenerAdapter {
                         method.invoke(listener, params.toArray());
                     }
                 } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
                 break;
             }
