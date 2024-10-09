@@ -1,12 +1,10 @@
 package fr.kinjer.kjda.listener;
 
-import fr.kinjer.kjda.KJDA;
 import fr.kinjer.kjda.KJDABuilder;
 import fr.kinjer.kjda.command.KCommandExecutor;
 import fr.kinjer.kjda.command.KCommandInfo;
 import fr.kinjer.kjda.command.KSubCommand;
 import fr.kinjer.kjda.command.option.KOptionData;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.GenericCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -18,6 +16,8 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class KCommandListener extends ListenerAdapter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(KCommandListener.class);
 
     private final KJDABuilder kjda;
 
@@ -120,7 +122,8 @@ public class KCommandListener extends ListenerAdapter {
                     declaredMethod.invoke(command, params.toArray());
                 }
             } catch (InvocationTargetException | IllegalAccessException e) {
-                throw new RuntimeException(e);
+                LOGGER.error("Error with: " + classEvent.getName() + ", event: " + event.getClass().getName(), e);
+                event.reply("Erreur commande, merci de contacter un admin.").setEphemeral(true).queue();
             }
         }
     }
