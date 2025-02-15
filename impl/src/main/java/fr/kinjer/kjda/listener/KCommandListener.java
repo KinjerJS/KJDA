@@ -102,13 +102,10 @@ public class KCommandListener extends ListenerAdapter {
                     if (classEvent == SlashCommandInteractionEvent.class) {
                         String subCommand = event.getSubcommandName() == null ? "" : event.getSubcommandName();
                         String subCommandGroup = event.getSubcommandGroup() == null ? "" : event.getSubcommandGroup();
-                        if (!subCommand.isEmpty() && !subCommandGroup.isEmpty() && commandExecutor.subCommandGroup().equals(subCommand) && commandExecutor.subCommand().equals(subCommandGroup)) {
-                            declaredMethod.invoke(command, params.toArray());
-                            continue;
-                        } else if(!subCommand.isEmpty() && commandExecutor.subCommand().equals(subCommand)) {
-                            declaredMethod.invoke(command, params.toArray());
-                            continue;
-                        } else if(!subCommandGroup.isEmpty() && commandExecutor.subCommandGroup().equals(subCommandGroup)) {
+                        if (!subCommand.isEmpty() && !subCommandGroup.isEmpty()
+                                && commandExecutor.subCommandGroup().equals(subCommand) && commandExecutor.subCommand().equals(subCommandGroup)
+                                || !subCommand.isEmpty() && commandExecutor.subCommand().equals(subCommand)
+                                || !subCommandGroup.isEmpty() && commandExecutor.subCommandGroup().equals(subCommandGroup)) {
                             declaredMethod.invoke(command, params.toArray());
                             continue;
                         }
