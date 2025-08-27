@@ -1,6 +1,12 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.github.johnrengelman.shadow'
 
     group = 'fr.kinjer'
     version = '1.0-SNAPSHOT'
@@ -10,7 +16,7 @@ subprojects {
     }
 
     dependencies {
-        api "net.dv8tion:JDA:5.3.1"
+        compileOnly "net.dv8tion:JDA:5.3.1"
         implementation 'org.reflections:reflections:0.9.11'
 
         testImplementation platform('org.junit:junit-bom:5.10.0')

@@ -1,0 +1,26 @@
+publishing {
+    publications {
+        mavenJava(org.gradle.api.publish.maven.MavenPublication) {
+            from components.java
+
+            pom {
+                groupId = project.group
+                artifactId = 'kjda-api'
+                version = project.version
+                name = 'KJDA'
+                url = 'https://github.com/KinjerJS/KJDA'
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username System.getenv('GITHUB_USERNAME')
+                password System.getenv('GITHUB_TOKEN')
+            }
+            name = "KJDA_maven"
+            url = "https://maven.pkg.github.com/KinjerJS/KJDA"
+        }
+    }
+}
