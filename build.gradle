@@ -9,7 +9,7 @@ subprojects {
     apply plugin: 'com.github.johnrengelman.shadow'
 
     group = 'fr.kinjer'
-    version = '1.0.0-rc.1'
+    version = '1.0.0-rc.2'
 
     repositories {
         mavenCentral()
