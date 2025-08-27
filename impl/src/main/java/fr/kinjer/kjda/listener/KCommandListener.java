@@ -52,20 +52,24 @@ public class KCommandListener extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent event) {
+        System.out.println("Ready " + this.kjda.getCommands());
         for (Object command : this.kjda.getCommands()) {
             KCommandInfo commandInfo = command.getClass().getAnnotation(KCommandInfo.class);
             if (commandInfo.type() == Command.Type.SLASH) {
-                event.getJDA().upsertCommand(commandInfo.name(), commandInfo.description())
-                        .addOptions(optionsData(commandInfo.options()))
-                        .addSubcommands(subCommandsData(commandInfo.subCommands()))
-                        .addSubcommandGroups(Arrays.stream(commandInfo.subCommandGroups())
-                                .map(subCommandGroup -> new SubcommandGroupData(subCommandGroup.name(), subCommandGroup.description())
-                                        .addSubcommands(subCommandsData(subCommandGroup.subCommands())))
-                                .toList())
-                        .queue();
+                event.getJDA().getGuilds().forEach(
+                        guild -> guild.upsertCommand(commandInfo.name(), commandInfo.description())
+                                .addOptions(optionsData(commandInfo.options()))
+                                .addSubcommands(subCommandsData(commandInfo.subCommands()))
+                                .addSubcommandGroups(Arrays.stream(commandInfo.subCommandGroups())
+                                        .map(subCommandGroup -> new SubcommandGroupData(subCommandGroup.name(), subCommandGroup.description())
+                                                .addSubcommands(subCommandsData(subCommandGroup.subCommands())))
+                                        .toList())
+                                .queue((c) -> System.out.println("Commande " + c.getName() + " ajoutée."))
+                        );
                 continue;
             }
-            event.getJDA().upsertCommand(new CommandDataImpl(commandInfo.type(), commandInfo.name())).queue();
+            event.getJDA().getGuilds().forEach(
+                    guild -> guild.upsertCommand(new CommandDataImpl(commandInfo.type(), commandInfo.name())).queue());
         }
     }
 
