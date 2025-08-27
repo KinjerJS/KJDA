@@ -43,7 +43,6 @@ public class KListenerListener extends ListenerAdapter {
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
-                break;
             }
         }
     }
